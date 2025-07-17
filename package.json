@@ -2,10 +2,14 @@
   "name": "hono-better-auth",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "db:up": "docker compose up -d"
+    "db:up": "docker compose up -d",
+    "db:generate:migration": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.3",
+    "drizzle-seed": "^0.3.1",
     "hono": "^4.8.5",
     "pg": "^8.16.3"
   },

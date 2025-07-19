@@ -8,6 +8,13 @@
       "when": 1752744875405,
       "tag": "0000_ordinary_maggott",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752883583569,
+      "tag": "0001_secret_lester",
+      "breakpoints": true
     }
   ]
 }

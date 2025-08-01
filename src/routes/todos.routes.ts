@@ -1,7 +1,8 @@
-import { getTodosByUserId, insertTodo } from "@/db/queries";
+import { getTodosByUserId, insertTodo, updateTodo } from "@/db/queries";
 import { authMiddleware } from "@/middlewares/auth.middleware";
 import { HonoEnv } from "@/types";
 import { createTodoValidator } from "@/validators/create-todo.validator";
+import { updateTodoValidator } from "@/validators/update-todo.validator";
 import { Hono } from "hono";
 
 export const todos = new Hono<HonoEnv>();
@@ -37,6 +38,27 @@ todos.post("/", createTodoValidator, async (c) => {
     return c.json(
       {
         error: "Failed to create todo",
+      },
+      500
+    );
+  }
+});
+
+todos.patch("/", updateTodoValidator, async (c) => {
+  const user = c.get("user");
+  const { id, title, description, completed } = c.req.valid("json");
+
+  try {
+    const updatedTodo = await updateTodo(id, user.id, {
+      title,
+      description,
+      completed,
+    });
+    return c.json(updatedTodo, 200);
+  } catch (error) {
+    return c.json(
+      {
+        error: "Failed to update todo",
       },
       500
     );

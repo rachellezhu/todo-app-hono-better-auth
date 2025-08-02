@@ -34,3 +34,15 @@ export const updateTodo = async (
 
   return result;
 };
+
+export const deleteTodo = async (
+  id: Todo["id"],
+  userId: Todo["userId"]
+): Promise<Todo> => {
+  const [result] = await db
+    .delete(todos)
+    .where(and(eq(todos.id, id), eq(todos.userId, userId)))
+    .returning();
+
+  return result;
+};
